@@ -11,4 +11,27 @@ $(document).ready(function(){
     };
 
     console.log(Image.band);
+
+
+// get  current position from browser, return Latitude and Longitude
+var browserLatitude, browserLongitude;
+
+(function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            browserLatitude = position.coords.latitude;
+            browserLongitude = position.coords.longitude; 
+            console.log(browserLatitude);
+            console.log(browserLongitude);           
+        });
+    } else { 
+        // for testing
+        console.log("Geolocation is not supported by this browser.");
+    }
+})();
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
 });
