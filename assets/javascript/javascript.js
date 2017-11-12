@@ -21,8 +21,7 @@ var browserLatitude, browserLongitude;
         navigator.geolocation.getCurrentPosition(function(position){
             browserLatitude = position.coords.latitude;
             browserLongitude = position.coords.longitude; 
-            console.log(browserLatitude);
-            console.log(browserLongitude);           
+       
         });
     } else { 
         // for testing
@@ -30,8 +29,4 @@ var browserLatitude, browserLongitude;
     }
 })();
 
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;
-}
 });
