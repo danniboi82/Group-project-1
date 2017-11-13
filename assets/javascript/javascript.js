@@ -202,4 +202,4 @@ $("#submitSearch").on("click", function (event) {
   // console.log(searchURL);
   runSearch(searchURL);
 });
-});
+
