@@ -23,7 +23,9 @@ $(document).ready(function () {
             navigator.geolocation.getCurrentPosition(function (position) {
                 browserLatitude = position.coords.latitude;
                 browserLongitude = position.coords.longitude;
-
+                console.log(browserLatitude);
+                console.log(browserLongitude);
+                testingAjaxRequest(browserLatitude, browserLongitude);
             });
         } else {
             // for testing
@@ -50,5 +52,43 @@ $(document).ready(function () {
         return pic;
 
 
+    }
+
+    // -------------------------------------------------------------------------
+    // TEST CALL AJAX REQUEST TO SEATGEEK API
+
+    function testingAjaxRequest(lat, lon) {
+        var apiKey = "client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3";
+        var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey + "&lat=" + lat + "&lon=" + lon;
+        console.log(baseQueryURL);
+
+        $.ajax({
+            url: baseQueryURL,
+            method: "GET"
+        }).done(function (response) {
+            console.log(response);
+            displayMap(response.events);
+        });
+    };
+
+    // END OF TEST FOR AJAX REQUEST
+    // -------------------------------------------------------------------------
+
+    // insert a new map into <div> with id="map"
+    var map = L.map('map');
+    // add tile Layer 
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // takes array of events (response.events) from seatgeek ajax response
+    function displayMap(seatgeekEvents) {
+        var markerLayer = L.featureGroup().addTo(map);
+        for (var i = 0; i < seatgeekEvents.length; i++) {
+            var loc = seatgeekEvents[i].venue.location;
+            L.marker(loc).addTo(markerLayer)
+                .bindPopup(seatgeekEvents[i].title);
+        }
+        map.fitBounds(markerLayer.getBounds());
     }
 });
