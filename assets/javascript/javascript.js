@@ -1,8 +1,10 @@
-//API KEY FOR MEETUP : 2c1417672b6d787310406c51316d528
-//API KEY FOR iEVENT : mfrnWNrHSVck5Cqk
-//API KEY FOR SeatGeek : https://api.seatgeek.com/2/events?client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3#events/0
-
-
+//API KEY FOR SeatGeek : client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3
+//Host URL : https://api.seatgeek.com/2/events?
+// These variables will hold the results we get from the user's inputs via HTML
+var userSearch = "";
+var userDate = 0;
+var userCity = "";
+var userState = "";
 
 //DOCUMENT READY, get geo code of user to hydrate page with current events around them. POPULATE using initial AJAX pull using user's current location. 
 //USE geo coordinates to get city and city to use in ACUTAL AJAX QUERY.  
@@ -13,66 +15,87 @@
 //Need to figure out how to use api to create list of current events ACCORDING TO USERS CURRENT LOCATION 
 
 //"newpage" aka searched page will contain list of results made according to users input values subject,date,location.
-//We will append necessary data to provided/created divs to display results to end user. 
 
-$("#submit").on("click", function() {
-$.ajax({
-    var userInput = 
-    url:"https://api.meetup.com/2/events?key=2c1417672b6d787310406c51316d528&group_urlname=ny-tech&sign=true#meta",
-    method: GET,
-}) .done(function(){
+//Append necessary data to provided/created divs to display results to end user. 
 
+var apiKey = "&client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3"
+// var userQuery = "&q="+userSearch;
+var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey;
+
+
+console.log(baseQueryURL);
+
+function runSearch(queryURL) {
+  $.ajax({
+    url: queryURL,
+    method: 'GET'
+  }).done(function (response) {
+    for(var i = 0 ; i < response.events.length; i++){
+      console.log(response.events[i].title);
+      console.log(response.events[i].url);
+      console.log(response.events[i].venue.display_location);
+      console.log(response.events[i].datetime_local);
+      console.log(response.events[i].performers[0].image);
+      //***if image object is null use stock image in place.***
+      //Link JSON returns to HTML
+      //create div to diplay results data
+      var displayResults = $("<div>");
+      //create cardClass(bootstrap) to contain data and image
+      displayResults.addClass("card");
+      //create id for each returned object
+      displayResults.attr("id", "returnedData" + i);
+      //append diplay results to id searchResults
+      $("#searchResults").append(displayResults);
+      //append results to each card.
+      //*****EXPECTING data to append but NOT WORKING!!!!!! *******
+      $("#returnedData" + i).append("<p>" + response.events[i].title +"<p>");    
+    }
+  });
+}
+
+// on.("click") event store user inputs and perform search via runSearch
+$("#submitSearch").on("click", function (event) {
+  // This line allows us to take advantage of the HTML "submit" property
+  // This way we can hit enter on the keyboard and it registers the search
+  // (in addition to clicks).
+  event.preventDefault();
+  // ATTEMPTING TO EMPTY searchResults div to append json object (data) NOT WORKING
+  $("#searchResuts").remove();
+
+  // Grabbing text the user typed into the search input
+  userSearch = $("#userSearch").val().trim();
+  //confirm userSearch 
+  console.log(userSearch);
+  //create var userQuery hold user search with URL parameters
+  var userQuery = "&q=" + userSearch;
+  //create searchURL (URL to be searched ) to pass in as queryURL in AJAX call
+  var searchURL = baseQueryURL + userQuery;
+  //confirm searchURL 
+  console.log(searchURL);
+
+  //*********************ATTEMPTED TO MAKE but not WORKING as intended *************************************************
+  // //add userDate 
+  // userDate = $("#userDate").val().trim();
+  // //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
+  // var queryDate = "&datetime_utc=" + userDate;
+  // //create searchURL to pass in as queryURL in AJAX call
+  // searchURL = searchURL + queryDate;
+  // console.log(searchURL);
+  // //add userCity 
+  // userCity = $("#userCity").val().trim();
+  // //create variable queryCity to hold city queried with URL parameters
+  // var queryCity = "&venue.city=" + userCity;
+  // //create searchURL to pass in as queryURL in AJAX call
+  // searchURL = searchURL + queryCity;
+  // console.log(searchURL);
+  // //add userState 
+  // userState = $("#userState").val().trim();
+  // //create variable queryState to hold state queried with URL parameters
+  // var queryState = "&venue.state=" + userState;
+  // //create searchURL to pass in as queryURL in AJAX call
+  // searchURL = searchURL + queryState;
+  // console.log(searchURL);
+  runSearch(searchURL);
+  return false;
 });
 
-})
-
-// METHODS
-// ==========================================================
-
-// on.("click") function associated with the Search Button
-$("#run-search").on("click", function(event) {
-    // This line allows us to take advantage of the HTML "submit" property
-    // This way we can hit enter on the keyboard and it registers the search
-    // (in addition to clicks).
-    event.preventDefault();
-  
-    // Initially sets the articleCounter to 0
-    articleCounter = 0;
-  
-    // Empties the region associated with the articles
-    $("#well-section").empty();
-  
-    // Grabbing text the user typed into the search input
-    searchTerm = $("#search-term").val().trim();
-    var searchURL = queryURLBase + searchTerm;
-  
-    // Number of results the user would like displayed
-    numResults = $("#num-records-select").val();
-  
-    // Start Year
-    startYear = $("#start-year").val().trim();
-  
-    // End Year
-    endYear = $("#end-year").val().trim();
-  
-    // If the user provides a startYear -- the startYear will be included in the queryURL
-    if (parseInt(startYear)) {
-      searchURL = searchURL + "&begin_date=" + startYear + "0101";
-    }
-  
-    // If the user provides a startYear -- the endYear will be included in the queryURL
-    if (parseInt(endYear)) {
-      searchURL = searchURL + "&end_date=" + endYear + "0101";
-    }
-  
-    // Then we will pass the final searchURL and the number of results to
-    // include to the runQuery function
-    runQuery(numResults, searchURL);
-  });
-  
-  // This button clears the top articles section
-  $("#clear-all").on("click", function() {
-    articleCounter = 0;
-    $("#well-section").empty();
-  });
-  
