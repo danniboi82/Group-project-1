@@ -19,8 +19,8 @@ var userState = "";
 //Append necessary data to provided/created divs to display results to end user. 
 
 var apiKey = "&client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3"
-// var userQuery = "&q="+userSearch;
-var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey;
+var userQuery = "&q="+userSearch;
+var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey + userQuery;
 
 
 console.log(baseQueryURL);
@@ -30,13 +30,16 @@ function runSearch(queryURL) {
     url: queryURL,
     method: 'GET'
   }).done(function (response) {
+
+    //clear search from before
+    $("#searchResults").empty();
+
     for(var i = 0 ; i < response.events.length; i++){
       console.log(response.events[i].title);
       console.log(response.events[i].url);
       console.log(response.events[i].venue.display_location);
       console.log(response.events[i].datetime_local);
       console.log(response.events[i].performers[0].image);
-      //***if image object is null use stock image in place.***
       //Link JSON returns to HTML
       //create div to diplay results data
       var displayResults = $("<div>");
@@ -46,21 +49,21 @@ function runSearch(queryURL) {
       displayResults.attr("id", "returnedData" + i);
       //append diplay results to id searchResults
       $("#searchResults").append(displayResults);
+      //***if image object is null use stock image in place.***
+      // if(response.event[i].performers[0].image === null){}
       //append results to each card.
+      $("#returnedData" + i).append("<img src=" + response.events[i].performers[0].image + ">");       
       $("#returnedData" + i).append("<h3>" + response.events[i].title +"<h3>"); 
       $("#returnedData" + i).append("<p>Event Location :" + response.events[i].venue.display_location +"<p>"); 
       $("#returnedData" + i).append("<p>Event Date/Time :" + response.events[i].datetime_local +"<p>"); 
       $("#returnedData" + i).append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");       
-      $("#returnedData" + i).append("<img src=" + response.events[i].performers[0].image + ">"); 
     }
   });
 }
 
 // on.("click") event store user inputs and perform search via runSearch
 $("#submitSearch").on("click", function (event) {
-  // This line allows us to take advantage of the HTML "submit" property
-  // This way we can hit enter on the keyboard and it registers the search
-  // (in addition to clicks).
+  //prevents default event from occuring
   event.preventDefault();
   // ATTEMPTING TO EMPTY searchResults div to append json object (data) NOT WORKING
   $("#searchResuts").remove();
@@ -77,28 +80,27 @@ $("#submitSearch").on("click", function (event) {
   console.log(searchURL);
 
   //*********************ATTEMPTED TO MAKE but not WORKING as intended *************************************************
-  // //add userDate 
-  // userDate = $("#userDate").val().trim();
-  // //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
-  // var queryDate = "&datetime_utc=" + userDate;
-  // //create searchURL to pass in as queryURL in AJAX call
-  // searchURL = searchURL + queryDate;
-  // console.log(searchURL);
-  // //add userCity 
-  // userCity = $("#userCity").val().trim();
-  // //create variable queryCity to hold city queried with URL parameters
-  // var queryCity = "&venue.city=" + userCity;
-  // //create searchURL to pass in as queryURL in AJAX call
-  // searchURL = searchURL + queryCity;
-  // console.log(searchURL);
-  // //add userState 
-  // userState = $("#userState").val().trim();
-  // //create variable queryState to hold state queried with URL parameters
-  // var queryState = "&venue.state=" + userState;
-  // //create searchURL to pass in as queryURL in AJAX call
-  // searchURL = searchURL + queryState;
-  // console.log(searchURL);
+  //add userDate 
+  userDate = $("#userDate").val().trim();
+  //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
+  var queryDate = "&datetime_utc=" + userDate;
+  //create searchURL to pass in as queryURL in AJAX call
+  searchURL = searchURL + queryDate;
+  console.log(searchURL);
+  //add userCity 
+  userCity = $("#userCity").val().trim();
+  //create variable queryCity to hold city queried with URL parameters
+  var queryCity = "&venue.city=" + userCity;
+  //create searchURL to pass in as queryURL in AJAX call
+  searchURL = searchURL + queryCity;
+  console.log(searchURL);
+  //add userState 
+  userState = $("#userState").val().trim();
+  //create variable queryState to hold state queried with URL parameters
+  var queryState = "&venue.state=" + userState;
+  //create searchURL to pass in as queryURL in AJAX call
+  searchURL = searchURL + queryState;
+  console.log(searchURL);
   runSearch(searchURL);
-  return false;
 });
 
