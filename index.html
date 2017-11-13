@@ -9,8 +9,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
         crossorigin="anonymous">
 
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>iEvents</title>
+
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+
+    <!-- Added a links for Leaflet library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+    integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+    integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+    crossorigin=""></script>
 </head>
 
 <body>
@@ -29,6 +37,7 @@
                 <a class="nav-item nav-link active" href="#">Help</a>
                 <a class="nav-item nav-link active" href="#">Create Event</a>
             </div>
+            <div id="map" style="height:400px; width:500px;"></div>
         </div>
     </nav>
 
