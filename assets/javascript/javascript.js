@@ -47,8 +47,11 @@ function runSearch(queryURL) {
       //append diplay results to id searchResults
       $("#searchResults").append(displayResults);
       //append results to each card.
-      //*****EXPECTING data to append but NOT WORKING!!!!!! *******
-      $("#returnedData" + i).append("<p>" + response.events[i].title +"<p>");    
+      $("#returnedData" + i).append("<h3>" + response.events[i].title +"<h3>"); 
+      $("#returnedData" + i).append("<p>Event Location :" + response.events[i].venue.display_location +"<p>"); 
+      $("#returnedData" + i).append("<p>Event Date/Time :" + response.events[i].datetime_local +"<p>"); 
+      $("#returnedData" + i).append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");       
+      $("#returnedData" + i).append("<img src=" + response.events[i].performers[0].image + ">"); 
     }
   });
 }
