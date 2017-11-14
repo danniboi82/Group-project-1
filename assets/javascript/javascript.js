@@ -173,6 +173,11 @@ $(document).ready(function () {
         
     }
     
+
+function convertCity(userInputStr) {
+    return userInputStr.split(' ').join('+');
+}
+
     // on.("click") event store user inputs and perform search via runSearch
     $("#submitSearch").on("click", function (event) {
         //prevents default event from occuring
