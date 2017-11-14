@@ -107,8 +107,12 @@ $(document).ready(function () {
         markerLayer = L.featureGroup().addTo(map);
         for (var i = 0; i < seatgeekEvents.length; i++) {
             var loc = seatgeekEvents[i].venue.location;
+            var eventId = "returnedData" + i;
+            var eventName = seatgeekEvents[i].title;
+            var link = "<a href=#" + eventId + ">" + eventName + "</a>"
+
             L.marker(loc).addTo(markerLayer)
-                .bindPopup(seatgeekEvents[i].title);
+                .bindPopup(link);
         }
         map.fitBounds(markerLayer.getBounds());
     }
@@ -145,9 +149,7 @@ $(document).ready(function () {
             url: queryURL,
             method: 'GET'
         }).done(function (response) {
-            console.log(response)
             displayMap(response.events);
-            console.log(response);
 
             //clear search from before
             $("#searchResults").empty();
