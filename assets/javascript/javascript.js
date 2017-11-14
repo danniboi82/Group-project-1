@@ -174,9 +174,6 @@ $(document).ready(function () {
     }
     
 
-function convertCity(userInputStr) {
-    return userInputStr.split(' ').join('+');
-}
 
     // on.("click") event store user inputs and perform search via runSearch
     $("#submitSearch").on("click", function (event) {
@@ -197,27 +194,28 @@ function convertCity(userInputStr) {
         console.log(searchURL);
         
         //*********************ATTEMPTED TO MAKE but not WORKING as intended *************************************************
-        // //add userDate 
-        // userDate = $("#userDate").val().trim();
-        // //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
-        // var queryDate = "&datetime_utc=" + userDate;
-        // //create searchURL to pass in as queryURL in AJAX call
-        // searchURL = searchURL + queryDate;
-        // console.log(searchURL);
-        // //add userCity 
-        // userCity = $("#userCity").val().trim();
-        // //create variable queryCity to hold city queried with URL parameters
-        // var queryCity = "&venue.city=" + userCity;
-        // //create searchURL to pass in as queryURL in AJAX call
-        // searchURL = searchURL + queryCity;
-        // console.log(searchURL);
-        // //add userState 
-        // userState = $("#userState").val().trim();
-        // //create variable queryState to hold state queried with URL parameters
-        // var queryState = "&venue.state=" + userState;
-        // //create searchURL to pass in as queryURL in AJAX call
-        // searchURL = searchURL + queryState;
-        // console.log(searchURL);
+        //add userDate 
+        userDate = $("#userDate").val().trim();
+        //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
+        var queryDate = "&datetime_utc=" + userDate;
+        //create searchURL to pass in as queryURL in AJAX call
+        searchURL = searchURL + queryDate;
+        console.log(searchURL);
+        //add userCity 
+        userCity = $("#userCity").val().trim();
+        userCity = userCity.split(' ').join('+');
+        //create variable queryCity to hold city queried with URL parameters
+        var queryCity = "&venue.city=" + userCity;
+        //create searchURL to pass in as queryURL in AJAX call
+        searchURL = searchURL + queryCity;
+        console.log(searchURL);
+        //add userState 
+        userState = $("#userState").val().trim();
+        //create variable queryState to hold state queried with URL parameters
+        var queryState = "&venue.state=" + userState;
+        //create searchURL to pass in as queryURL in AJAX call
+        searchURL = searchURL + queryState;
+        console.log(searchURL);
         runSearch(searchURL);
     });
     
