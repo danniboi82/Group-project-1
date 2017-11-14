@@ -168,16 +168,19 @@ $(document).ready(function () {
                 displayResults.addClass("card");
                 //create id for each returned object
                 displayResults.attr("id", "returnedData" + i);
+                displayResults.attr("class", "row");
+                // create div to collect info about event align right from the pic
+                var eventInfoDiv = $("<div>");
+                eventInfoDiv.addClass("col-md-8");
                 //append diplay results to id searchResults
                 $("#searchResults").append(displayResults);
-                //***if image object is null use stock image in place.***
-                // if(response.event[i].performers[0].image === null){}
                 //append results to each card.
-                $("#returnedData" + i).append("<img class='resultImage' src=" + getPic(response.events[i])[0] + ">");
-                $("#returnedData" + i).append("<h3>" + response.events[i].title + "<h3>");
-                $("#returnedData" + i).append("<p>Event Location :" + response.events[i].venue.display_location + "<p>");
-                $("#returnedData" + i).append("<p>Event Date/Time :" + response.events[i].datetime_local + "<p>");
-                $("#returnedData" + i).append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
+                displayResults.append("<img class='col-md-4' src=" + getPic(response.events[i])[0] + ">");
+                eventInfoDiv.append("<h3 class=eventInfoDiv-md-8>" + response.events[i].title + "<h3>");
+                eventInfoDiv.append("<p> Event Location :" + response.events[i].venue.display_location + "<p>");
+                eventInfoDiv.append("<p> Event Date/Time :" + response.events[i].datetime_local + "<p>");
+                eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
+                displayResults.append(eventInfoDiv);
             }
         });
 
