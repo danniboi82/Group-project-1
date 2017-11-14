@@ -6,13 +6,13 @@ $(document).ready(function () {
 
     //  Object to keep default images if IPA does not provide them
     var Image = {
-        band: "assest/images/band.jpg",
-        concert: "assest/images/concert.jpg",
-        sports: "assest/images/sport.jpg",
-        theater_broadway_national_tours: "assest/images/theater.jpg",
-        auto_racing: "assest/images/auto_racing.jpg",
-        theater: "assest/images/theater_2.jpg",
-        default: "assest/images/default.jpg"
+        band: "assets/images/band.jpg",
+        concert: "assets/images/concert.jpg",
+        sports: "assets/images/sport.jpg",
+        theater_broadway_national_tours: "assets/images/theater.jpg",
+        auto_racing: "assets/images/auto_racing.jpg",
+        theater: "assets/images/theater_2.jpg",
+        default: "assets/images/default.jpg"
     };
 
     //  returns today's date as a string in format yyyy-mm-dd
@@ -91,6 +91,7 @@ $(document).ready(function () {
 
     // insert a new map into <div> with id="map"
     var map = L.map('map');
+    var markerLayer;
     // add tile Layer 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -99,9 +100,11 @@ $(document).ready(function () {
 
     // takes array of events (response.events) from seatgeek ajax response
     function displayMap(seatgeekEvents) {
-
-        var markerLayer = L.featureGroup().addTo(map);
-        map.removeLayer(markerLayer);
+        if (markerLayer) {
+            map.removeLayer(markerLayer);
+            
+        }
+        markerLayer = L.featureGroup().addTo(map);
         for (var i = 0; i < seatgeekEvents.length; i++) {
             var loc = seatgeekEvents[i].venue.location;
             L.marker(loc).addTo(markerLayer)
@@ -141,6 +144,7 @@ $(document).ready(function () {
             url: queryURL,
             method: 'GET'
         }).done(function (response) {
+            displayMap(response.events);
 
             //clear search from before
             $("#searchResults").empty();
@@ -163,7 +167,7 @@ $(document).ready(function () {
                 //***if image object is null use stock image in place.***
                 // if(response.event[i].performers[0].image === null){}
                 //append results to each card.
-                $("#returnedData" + i).append("<img src=" + response.events[i].performers[0].image + ">");
+                $("#returnedData" + i).append("<img src=" + getPic(response.events[i])[0] + ">");
                 $("#returnedData" + i).append("<h3>" + response.events[i].title + "<h3>");
                 $("#returnedData" + i).append("<p>Event Location :" + response.events[i].venue.display_location + "<p>");
                 $("#returnedData" + i).append("<p>Event Date/Time :" + response.events[i].datetime_local + "<p>");
