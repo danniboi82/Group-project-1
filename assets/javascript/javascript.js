@@ -34,7 +34,7 @@ $(document).ready(function () {
     // get  current position from browser, return Latitude and Longitude
     var browserLatitude, browserLongitude;
 
-    function getLocation() {
+    (function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 browserLatitude = position.coords.latitude;
@@ -45,7 +45,7 @@ $(document).ready(function () {
             // for testing
             console.log("Geolocation is not supported by this browser.");
         }
-    };
+    })();
 
     // function takes 1 event (response.events[i]) from seatgeek ajax response
     function getPic(seatgeekEvent) {
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     function testingAjaxRequest(lat, lon) {
         var apiKey = "client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3";
-        var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey + "&lat=" + lat + "&lon=" + lon + "&datetime_utc.gte=" + dayToday() + "&datetime_utc.lte=2017-11-30";
+        var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey + "&lat=" + lat + "&lon=" + lon;
 
         $.ajax({
             url: baseQueryURL,
@@ -83,7 +83,7 @@ $(document).ready(function () {
         });
 
 
-        // runSearch(baseQueryURL);
+        runSearch(baseQueryURL);
     };
     
     // END OF TEST FOR AJAX REQUEST
@@ -177,11 +177,6 @@ $(document).ready(function () {
         
     }
     
-
-function convertCity(userInputStr) {
-    return userInputStr.split(' ').join('+');
-}
-
     // on.("click") event store user inputs and perform search via runSearch
     $("#submitSearch").on("click", function (event) {
         //prevents default event from occuring
