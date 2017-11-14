@@ -10,193 +10,193 @@
         crossorigin="anonymous">
 
 
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
-
-    <!-- Added a links for Leaflet library -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-    integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-    crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-    integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-    crossorigin=""></script>
-</head>
-
-<body>
-    <!-- NAV BAR SECTION -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
-        <a class="navbar-brand" href="#">iEvents</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse float-right" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Browse Events
-                    <span class="sr-only">(current)</span>
-                </a>
-                <a class="nav-item nav-link active" href="#">Organize</a>
-                <a class="nav-item nav-link active" href="#">Help</a>
-                <a class="nav-item nav-link active" href="#">Create Event</a>
-            </div>
-        </div>
-    </nav>
-  
-
-    <!-- PICTURE Carousel -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="https://static.pexels.com/photos/154147/pexels-photo-154147.jpeg" alt="First slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="http://www.clubcorp.com/var/ezflow_site/storage/images/media/clubs/gainey-ranch-media-folder/images/homepage-images/gainey-ranch-golf-club-scottsdale-az-llakes-hole-9-960x410/9828703-1-eng-US/Gainey-Ranch-Golf-Club-Scottsdale-AZ-lLakes-Hole-9-960x410_rotatingGalleryFront.jpg"
-                    alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="http://sudley-methodist.org/hp_wordpress/wp-content/uploads/2014/08/yoga.jpg" alt="Third slide">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
-    <div id="map" style="height:400px; width:500px;"></div>
+        
+        <!-- Added a links for Leaflet library -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+        integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+        crossorigin=""/>
+        <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    </head>
     
-    <div class="container">
-        <!-- JumboTron and SEARCH section -->
-        <div class="jumbotron">
-            <h1 class="display-3">
-                <i class="fa fa-camera-retro" aria-hidden="true"></i>iEvents</h1>
-            <p class="lead">Where the cool people socialize lol!!</p>
-            <form>
+    <body>
+        <!-- NAV BAR SECTION -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
+            <a class="navbar-brand" href="#">iEvents</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse float-right" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Browse Events
+                        <span class="sr-only">(current)</span>
+                    </a>
+                    <a class="nav-item nav-link active" href="#">Organize</a>
+                    <a class="nav-item nav-link active" href="#">Help</a>
+                    <a class="nav-item nav-link active" href="#">Create Event</a>
+                </div>
+            </div>
+        </nav>
+        
+        
+        <!-- PICTURE Carousel -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="https://static.pexels.com/photos/154147/pexels-photo-154147.jpeg" alt="First slide" height="400">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="http://www.clubcorp.com/var/ezflow_site/storage/images/media/clubs/gainey-ranch-media-folder/images/homepage-images/gainey-ranch-golf-club-scottsdale-az-llakes-hole-9-960x410/9828703-1-eng-US/Gainey-Ranch-Golf-Club-Scottsdale-AZ-lLakes-Hole-9-960x410_rotatingGalleryFront.jpg"
+                    alt="Second slide" height="400">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="http://sudley-methodist.org/hp_wordpress/wp-content/uploads/2014/08/yoga.jpg" alt="Third slide" height="400">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        
+       
+        <div class="container">
+            <!-- JumboTron and SEARCH section -->
+            <div class="jumbotron">
+                <h1 class="display-3">
+                    <i class="fa fa-camera-retro" aria-hidden="true"></i>iEvents</h1>
+                    <p class="lead">Where the cool people socialize lol!!</p>
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <!-- USER INPUT AREA -->
+                                <input type="text" class="form-control" placeholder="Search Events" id="userSearch">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="City" id="userCity">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="State" id="userState">
+                            </div>
+                            <!-- <div class="col">
+                                <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="userDate">
+                            </div> -->
+                            <div class="col">
+                                <!-- SUBMIT BUTTON -->
+                                <input type="submit" id="submitSearch">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="map" style="height:400px; width:800px;"></div>
+                
+                <!-- Events Section  -->
                 <div class="row">
-                    <div class="col">
-                        <!-- USER INPUT AREA -->
-                        <input type="text" class="form-control" placeholder="Search Events" id="userSearch">
+                    <div class="col-lg-12" id="searchResults">
+                        <h1 class='text-center'>Current Events</h1>
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="City" id="userCity">
+                    <div class="col-lg-4 col-sm-6" >
+                        <div class="thumbnail">
+                            <img src="https://0.s3.envato.com/files/146656541/prev-banner.jpg" class="img-thumbnail">
+                        </div>
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="State" id="userState">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="thumbnail">
+                            <img src="https://s3.envato.com/files/220567229/Image%20Preview.png" class="img-thumbnail">
+                        </div>
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="userDate">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="thumbnail">
+                            <img src="https://s3.envato.com/files/217208745/Preview%20Image.jpg" class="img-thumbnail">
+                        </div>
                     </div>
-                    <div class="col">
-                        <!-- SUBMIT BUTTON -->
-                        <input type="submit" id="submitSearch">
+                    <div class="col-lg-4 col-sm-6">
+                        <img src="https://s3.envato.com/files/138661282/Hot%20Dog%20Fundraiser%20Preview.jpg" class="img-thumbnail">
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <img src="https://i.pinimg.com/736x/e0/bc/4e/e0bc4e827a7c46cf4d75dda3a1fb2e61--poster-templates-print-templates.jpg" class="img-thumbnail">
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <img src="https://s3.envato.com/files/148430041/Turkey%20Trot%20preview.jpg" class="img-thumbnail">
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <img src="https://blog.bufferapp.com/wp-content/uploads/2016/04/facebook-ad-raise-attendance.png" class="img-thumbnail">
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <img src="https://i.pinimg.com/236x/24/24/2d/24242d811ec7062a177110fd61eadb88--gfx-design-flyer-design.jpg" class="img-thumbnail">
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <img src=""
+                        class="img-thumbnail">
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1 class="text-center">Browse By Category</h1>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-8">
+                        <img src="http://drugo-more.hr/wp-content/uploads/2015/04/party-06.jpg" alt="" class="img-thumbnail">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="http://www.newlifehikingspa.com/wp-content/uploads/2015/05/hiking.jpg" alt="" class="img-thumbnail">
                     </div>
                 </div>
-            </form>
-        </div>
-
-        <!-- Events Section  -->
-        <div class="row">
-            <div class="col-lg-12" id="searchResults">
-                <h1 class='text-center'>Current Events</h1>
-            </div>
-            <div class="col-lg-4 col-sm-6" >
-                <div class="thumbnail">
-                    <img src="https://0.s3.envato.com/files/146656541/prev-banner.jpg" class="img-thumbnail">
+                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img src="http://www.thebestindeed.com/wp-content/uploads/2017/09/cooking.png" alt="" class="img-thumbnail">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="https://tctechcrunch2011.files.wordpress.com/2015/04/codecode.jpg" alt="" class="img-thumbnail">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="http://www.korineumgolf.com/assets/images/slide/golf.jpg" alt="" class="img-thumbnail">
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="thumbnail">
-                    <img src="https://s3.envato.com/files/220567229/Image%20Preview.png" class="img-thumbnail">
+                
+                <div class="row">
+                    <div class="col-sm-4" class="img-thumbnail">
+                        <img src="https://thumb1.shutterstock.com/display_pic_with_logo/461077/133642784/stock-photo-image-of-female-touching-virtual-icon-of-social-network-133642784.jpg"
+                        alt="">
+                    </div>
+                    <div class="col-sm-8" class="img-thumbnail">
+                        <img src="https://storage.googleapis.com/cart-checkout/86c965e5-0796-4042-b89f-3cb40fb48ca7" alt="">
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="thumbnail">
-                    <img src="https://s3.envato.com/files/217208745/Preview%20Image.jpg" class="img-thumbnail">
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <img src="https://s3.envato.com/files/138661282/Hot%20Dog%20Fundraiser%20Preview.jpg" class="img-thumbnail">
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <img src="https://i.pinimg.com/736x/e0/bc/4e/e0bc4e827a7c46cf4d75dda3a1fb2e61--poster-templates-print-templates.jpg" class="img-thumbnail">
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <img src="https://s3.envato.com/files/148430041/Turkey%20Trot%20preview.jpg" class="img-thumbnail">
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <img src="https://blog.bufferapp.com/wp-content/uploads/2016/04/facebook-ad-raise-attendance.png" class="img-thumbnail">
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <img src="https://i.pinimg.com/236x/24/24/2d/24242d811ec7062a177110fd61eadb88--gfx-design-flyer-design.jpg" class="img-thumbnail">
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <img src="http://www.idealeventmanage.com/d/wp-content/uploads/bfi_thumb/2018-Gold-VIP-ad-ndg93elqouh82gr9jl8vi3bugvmrjgfmy9l6wzvhjo.jpg"
-                    class="img-thumbnail">
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <h1 class="text-center">Browse By Category</h1>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-sm-8">
-                <img src="http://drugo-more.hr/wp-content/uploads/2015/04/party-06.jpg" alt="" class="img-thumbnail">
-            </div>
-            <div class="col-sm-4">
-                <img src="http://www.newlifehikingspa.com/wp-content/uploads/2015/05/hiking.jpg" alt="" class="img-thumbnail">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="http://www.thebestindeed.com/wp-content/uploads/2017/09/cooking.png" alt="" class="img-thumbnail">
-            </div>
-            <div class="col-sm-4">
-                <img src="https://tctechcrunch2011.files.wordpress.com/2015/04/codecode.jpg" alt="" class="img-thumbnail">
-            </div>
-            <div class="col-sm-4">
-                <img src="http://www.korineumgolf.com/assets/images/slide/golf.jpg" alt="" class="img-thumbnail">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-4" class="img-thumbnail">
-                <img src="https://thumb1.shutterstock.com/display_pic_with_logo/461077/133642784/stock-photo-image-of-female-touching-virtual-icon-of-social-network-133642784.jpg"
-                    alt="">
-            </div>
-            <div class="col-sm-8" class="img-thumbnail">
-                <img src="https://storage.googleapis.com/cart-checkout/86c965e5-0796-4042-b89f-3cb40fb48ca7" alt="">
-            </div>
-        </div>
-
-        <footer class="text-center">
-            <p>Rough Draft by  : Dan Oh</p>
-            <p>Contact information:
-                <a href="mailto:someone@example.com">
-                    someone@example.com</a>.</p>
-        </footer>
-    </div>
-
-    <!-- BOOTSTRAP JS,POPPER, JQUERY -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-        crossorigin="anonymous"></script>
-    <script src="assets/javascript/javascript.js"></script>
-
-</body>
+                
+                <footer class="text-center">
+                    <p>Rough Draft by  : Dan Oh</p>
+                    <p>Contact information:
+                        <a href="mailto:someone@example.com">
+                            someone@example.com</a>.</p>
+                        </footer>
+                    </div>
+                    
+                    <!-- BOOTSTRAP JS,POPPER, JQUERY -->
+                    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+                integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                crossorigin=""></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+                    crossorigin="anonymous"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+                    crossorigin="anonymous"></script>
+                    <script src="assets/javascript/javascript.js"></script>
+                    
+                </body>
 
 </html>
