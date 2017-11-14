@@ -50,7 +50,7 @@ $(document).ready(function () {
     // function takes 1 event (response.events[i]) from seatgeek ajax response
     function getPic(seatgeekEvent) {
         var pic = [];
-        // if few performers for the event --> make an array of pics.
+        // if few performers for  the event --> make an array of pics.
         for (var i = 0; i < seatgeekEvent.performers.length; i++) {
             var image = seatgeekEvent.performers[i].image;
             if (image != null) {
@@ -153,6 +153,7 @@ $(document).ready(function () {
                 // console.log(response.events[i].performers[0].image);
                 //Link JSON returns to HTML
                 //create div to diplay results data
+                //*******TRY TO CREATE A GRID SYSTEM WITH CREATED DIVS
                 var displayResults = $("<div>");
                 //create cardClass(bootstrap) to contain data and image
                 displayResults.addClass("card");
@@ -163,7 +164,7 @@ $(document).ready(function () {
                 //***if image object is null use stock image in place.***
                 // if(response.event[i].performers[0].image === null){}
                 //append results to each card.
-                $("#returnedData" + i).append("<img src=" + response.events[i].performers[0].image + ">");
+                $("#returnedData" + i).append("<img class='resultImage'  src=" + response.events[i].performers[0].image + ">");
                 $("#returnedData" + i).append("<h3>" + response.events[i].title + "<h3>");
                 $("#returnedData" + i).append("<p>Event Location :" + response.events[i].venue.display_location + "<p>");
                 $("#returnedData" + i).append("<p>Event Date/Time :" + response.events[i].datetime_local + "<p>");
@@ -194,13 +195,13 @@ $(document).ready(function () {
         console.log(searchURL);
         
         //*********************ATTEMPTED TO MAKE but not WORKING as intended *************************************************
-        //add userDate 
-        userDate = $("#userDate").val().trim();
-        //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
-        var queryDate = "&datetime_utc=" + userDate;
-        //create searchURL to pass in as queryURL in AJAX call
-        searchURL = searchURL + queryDate;
-        console.log(searchURL);
+        // //add userDate 
+        // userDate = $("#userDate").val().trim();
+        // //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
+        // var queryDate = "&datetime_local=" + userDate;
+        // //create searchURL to pass in as queryURL in AJAX call
+        // searchURL = searchURL + queryDate;
+        // console.log(searchURL);
         //add userCity 
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
