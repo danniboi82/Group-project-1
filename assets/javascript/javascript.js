@@ -1,7 +1,3 @@
-//API KEY FOR MEETUP : 2c1417672b6d787310406c51316d528
-//API KEY FOR iEVENT : mfrnWNrHSVck5Cqk
-//API KEY FOR SeatGeek : https://api.seatgeek.com/2/events?client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3#events/0
-
 $(document).ready(function () {
 
     //  Object to keep default images if IPA does not provide them
@@ -81,8 +77,6 @@ $(document).ready(function () {
         }).done(function (response) {
             displayMap(response.events);
         });
-
-
         runSearch(baseQueryURL);
     };
 
@@ -107,8 +101,12 @@ $(document).ready(function () {
         markerLayer = L.featureGroup().addTo(map);
         for (var i = 0; i < seatgeekEvents.length; i++) {
             var loc = seatgeekEvents[i].venue.location;
+            var eventId = "returnedData" + i;
+            var eventName = seatgeekEvents[i].title;
+            var link = "<a href=#" + eventId + ">" + eventName + "</a>"
+
             L.marker(loc).addTo(markerLayer)
-                .bindPopup(seatgeekEvents[i].title);
+                .bindPopup(link);
         }
         map.fitBounds(markerLayer.getBounds());
     }
@@ -138,7 +136,9 @@ $(document).ready(function () {
     // var userQuery = "&q="+userSearch;
     var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey;
 
+
     function runSearch(queryURL) {
+        console.log(queryURL);
         $.ajax({
             url: queryURL,
             method: 'GET'
@@ -148,34 +148,41 @@ $(document).ready(function () {
             //clear search from before
             $("#searchResults").empty();
 
-            for (var i = 0; i < response.events.length; i++) {
-                // console.log(response.events[i].title);
-                // console.log(response.events[i].url);
-                // console.log(response.events[i].venue.display_location);
-                // console.log(response.events[i].datetime_local);
-                // console.log(response.events[i].performers[0].image);
-                //Link JSON returns to HTML
-                //create div to diplay results data
-                //*******TRY TO CREATE A GRID SYSTEM WITH CREATED DIVS
-                var displayResults = $("<div>");
-                //create cardClass(bootstrap) to contain data and image
-                displayResults.addClass("card");
-                //create id for each returned object
-                displayResults.attr("id", "returnedData" + i);
-                //append diplay results to id searchResults
-                $("#searchResults").append(displayResults);
-                //***if image object is null use stock image in place.***
-                // if(response.event[i].performers[0].image === null){}
-                //append results to each card.
-                $("#returnedData" + i).append("<img class='resultImage' src=" + getPic(response.events[i])[0] + ">");
-                $("#returnedData" + i).append("<h3>" + response.events[i].title + "<h3>");
-                $("#returnedData" + i).append("<p>Event Location: " + response.events[i].venue.display_location + "<p>");
-                $("#returnedData" + i).append("<p>Event Date/Time: " + response.events[i].datetime_local + "<p>");
-                $("#returnedData" + i).append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
+            if (response.events.length === 0) {
+                $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
+            } else {
+
+                for (var i = 0; i < response.events.length; i++) {
+                    // console.log(response.events[i].title);
+                    // console.log(response.events[i].url);
+                    // console.log(response.events[i].venue.display_location);
+                    // console.log(response.events[i].datetime_local);
+                    // console.log(response.events[i].performers[0].image);
+                    var displayResults = $("<div>");
+                    //create cardClass(bootstrap) to contain data and image
+                    displayResults.addClass("card");
+                    //create id for each returned object
+                    displayResults.attr("id", "returnedData" + i);
+                    displayResults.attr("class", "row");
+                    // create div to collect info about event align right from the pic
+                    var eventInfoDiv = $("<div>");
+                    eventInfoDiv.addClass("col-md-8");
+                    //append diplay results to id searchResults
+                    $("#searchResults").append(displayResults);
+                    //append results to each card.
+                    displayResults.append("<img class='col-md-4' src=" + getPic(response.events[i])[0] + ">");
+                    eventInfoDiv.append("<h3 class=eventInfoDiv-md-8>" + response.events[i].title + "<h3>");
+                    eventInfoDiv.append("<p> Event Location :" + response.events[i].venue.display_location + "<p>");
+                    eventInfoDiv.append("<p> Event Date/Time :" + response.events[i].datetime_local + "<p>");
+                    eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
+                    displayResults.append(eventInfoDiv);
+                }
             }
         });
 
     }
+
+
 
     // on.("click") event store user inputs and perform search via runSearch
     $("#submitSearch").on("click", function (event) {
@@ -183,17 +190,15 @@ $(document).ready(function () {
         event.preventDefault();
         // ATTEMPTING TO EMPTY searchResults div to append json object (data) NOT WORKING
         $("#searchResuts").remove();
+
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
         //confirm userSearch 
-        console.log(userSearch);
         //create var userQuery hold user search with URL parameters
         var userQuery = "&q=" + userSearch;
         //create searchURL (URL to be searched ) to pass in as queryURL in AJAX call
         var searchURL = baseQueryURL + userQuery;
         //confirm searchURL 
-        console.log(searchURL);
-
         //*********************ATTEMPTED TO MAKE but not WORKING as intended *************************************************
         // //add userDate 
         // userDate = $("#userDate").val().trim();
@@ -206,23 +211,26 @@ $(document).ready(function () {
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
         //uses userCity to search for local weather
-        weather(userCity); 
+        weather(userCity);
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
         console.log(searchURL);
         //add userState 
-        userState = $("#userState").val().trim();
+        userState = $("#state").val().trim();
+        if (userState) {
+            var queryState = "&venue.state=" + userState;
+            //create searchURL to pass in as queryURL in AJAX call
+            searchURL = searchURL + queryState;
+        }
         //create variable queryState to hold state queried with URL parameters
-        var queryState = "&venue.state=" + userState;
-        //create searchURL to pass in as queryURL in AJAX call
-        searchURL = searchURL + queryState;
-        console.log(searchURL);
+        if (userState) {
+            var queryState = "&venue.state=" + userState;
+            searchURL = searchURL + queryState;
+        }
         runSearch(searchURL);
     });
-
-
 });
 
 //weather API starts here - Archie
@@ -256,3 +264,4 @@ function show(data) {
         '<h3><strong>Wind Speed</strong>: ' + data.wind.speed + '</h3>';
 
 };
+
