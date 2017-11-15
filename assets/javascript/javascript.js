@@ -192,25 +192,14 @@ $(document).ready(function () {
         event.preventDefault();
         // ATTEMPTING TO EMPTY searchResults div to append json object (data) NOT WORKING
         $("#searchResuts").remove();
-
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
         //confirm userSearch 
-        console.log(userSearch);
         //create var userQuery hold user search with URL parameters
         var userQuery = "&q=" + userSearch;
         //create searchURL (URL to be searched ) to pass in as queryURL in AJAX call
         var searchURL = baseQueryURL + userQuery;
         //confirm searchURL 
-        console.log(searchURL);
-
-
-        // ++++++++++++++++++++
-
-
-
-
-
         //*********************ATTEMPTED TO MAKE but not WORKING as intended *************************************************
         // //add userDate 
         // userDate = $("#userDate").val().trim();
@@ -222,23 +211,55 @@ $(document).ready(function () {
         //add userCity 
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
+        //uses userCity to search for local weather
+        weather(userCity); 
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
         console.log(searchURL);
         //add userState 
-        userState = $("#userState").val().trim();
+        userState = $("#state").val().trim();
 
         //create variable queryState to hold state queried with URL parameters
         if (userState) {
             var queryState = "&venue.state=" + userState;
             searchURL = searchURL + queryState;
         }
-        //create searchURL to pass in as queryURL in AJAX call
-
-        console.log(searchURL);
         runSearch(searchURL);
     });
 
+
 });
+
+//weather API starts here - Archie
+//Tried to connect the "City" section from the form to sync with the city data, userCity
+function weather(userCity) {
+    if (userCity != '') {
+        $.ajax({
+            url: 'http://api.openweathermap.org/data/2.5/weather?q=' + userCity + '&units=imperial' + '&APPID=13c12670457fb8abfe535c34a3edb056',
+            type: 'GET'
+        }).done(function (response) {
+            var widget = show(response);
+            console.log(widget);
+            $('#weather').html(widget);
+
+        }
+            );
+
+    };
+};
+
+//function to show data
+function show(data) {
+    return '<h3>Current Weather: ' + data.name + ',' + data.sys.country + '</h3>' +
+        '<h3><strong>Weather</strong>: ' + data.weather[0].main + '</h3>' +
+        '<h3><strong>Description</strong>: ' + data.weather[0].description + '</h3>' +
+        '<h3><strong>Temperature</strong>: ' + data.main.temp + '</h3>' +
+        '<h3><strong>Humidity</strong>: ' + data.main.humidty + '</h3>' +
+        '<h3><strong>Minimum Temperature</strong>: ' + data.main.temp_min + '</h3>' +
+        '<h3><strong>Maximum Temperature</strong>: ' + data.main.temp_max + '</h3>' +
+        '<h3><strong>Wind Direction</strong>: ' + data.wind.degree + '</h3>' +
+        '<h3><strong>Wind Speed</strong>: ' + data.wind.speed + '</h3>';
+
+};
