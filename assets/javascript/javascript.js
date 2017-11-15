@@ -77,8 +77,6 @@ $(document).ready(function () {
             }).done(function (response) {
                 displayMap(response.events);
             });
-    
-    
             runSearch(baseQueryURL);
         };
     
@@ -217,7 +215,7 @@ $(document).ready(function () {
             searchURL = searchURL + queryCity;
             console.log(searchURL);
             //add userState 
-            userState = $("#userState").val().trim();
+            userState = $("#state").val().trim();
             if (userState) {
                 var queryState = "&venue.state=" + userState;
                 //create searchURL to pass in as queryURL in AJAX call
@@ -226,7 +224,6 @@ $(document).ready(function () {
             //create variable queryState to hold state queried with URL parameters
             runSearch(searchURL);
         });
-    
     });
     
     //weather API starts here - Archie
