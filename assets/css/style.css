@@ -34,6 +34,15 @@ img.resultImage {
     font-size: 20px;
 }
 
+
+p.small {
+    line-height: 35%;
+    text-align: center;
+    padding: 0px;
+    margin-top: -5px;
+
+}
+
 .jumbotronContainer { 
     margin-top: 10px;
 }
@@ -54,3 +63,4 @@ img.resultImage {
         width: 100px;
     }
 }
+
