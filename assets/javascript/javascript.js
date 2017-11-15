@@ -1,7 +1,3 @@
-//API KEY FOR MEETUP : 2c1417672b6d787310406c51316d528
-//API KEY FOR iEVENT : mfrnWNrHSVck5Cqk
-//API KEY FOR SeatGeek : https://api.seatgeek.com/2/events?client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3#events/0
-
 $(document).ready(function () {
 
     //  Object to keep default images if IPA does not provide them
@@ -81,8 +77,6 @@ $(document).ready(function () {
         }).done(function (response) {
             displayMap(response.events);
         });
-
-
         runSearch(baseQueryURL);
     };
 
@@ -154,37 +148,41 @@ $(document).ready(function () {
             //clear search from before
             $("#searchResults").empty();
 
-            for (var i = 0; i < response.events.length; i++) {
-                // console.log(response.events[i].title);
-                // console.log(response.events[i].url);
-                // console.log(response.events[i].venue.display_location);
-                // console.log(response.events[i].datetime_local);
-                // console.log(response.events[i].performers[0].image);
-                //Link JSON returns to HTML
-                //create div to diplay results data
-                //*******TRY TO CREATE A GRID SYSTEM WITH CREATED DIVS
-                var displayResults = $("<div>");
-                //create cardClass(bootstrap) to contain data and image
-                displayResults.addClass("card");
-                //create id for each returned object
-                displayResults.attr("id", "returnedData" + i);
-                displayResults.attr("class", "row");
-                // create div to collect info about event align right from the pic
-                var eventInfoDiv = $("<div>");
-                eventInfoDiv.addClass("col-md-8");
-                //append diplay results to id searchResults
-                $("#searchResults").append(displayResults);
-                //append results to each card.
-                displayResults.append("<img class='col-md-4' src=" + getPic(response.events[i])[0] + ">");
-                eventInfoDiv.append("<h3 class=eventInfoDiv-md-8>" + response.events[i].title + "<h3>");
-                eventInfoDiv.append("<p> Event Location :" + response.events[i].venue.display_location + "<p>");
-                eventInfoDiv.append("<p> Event Date/Time :" + response.events[i].datetime_local + "<p>");
-                eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
-                displayResults.append(eventInfoDiv);
+            if (response.events.length === 0) {
+                $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
+            } else {
+
+                for (var i = 0; i < response.events.length; i++) {
+                    // console.log(response.events[i].title);
+                    // console.log(response.events[i].url);
+                    // console.log(response.events[i].venue.display_location);
+                    // console.log(response.events[i].datetime_local);
+                    // console.log(response.events[i].performers[0].image);
+                    var displayResults = $("<div>");
+                    //create cardClass(bootstrap) to contain data and image
+                    displayResults.addClass("card");
+                    //create id for each returned object
+                    displayResults.attr("id", "returnedData" + i);
+                    displayResults.attr("class", "row");
+                    // create div to collect info about event align right from the pic
+                    var eventInfoDiv = $("<div>");
+                    eventInfoDiv.addClass("col-md-8");
+                    //append diplay results to id searchResults
+                    $("#searchResults").append(displayResults);
+                    //append results to each card.
+                    displayResults.append("<img class='col-md-4' src=" + getPic(response.events[i])[0] + ">");
+                    eventInfoDiv.append("<h3 class=eventInfoDiv-md-8>" + response.events[i].title + "<h3>");
+                    eventInfoDiv.append("<p> Event Location :" + response.events[i].venue.display_location + "<p>");
+                    eventInfoDiv.append("<p> Event Date/Time :" + response.events[i].datetime_local + "<p>");
+                    eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
+                    displayResults.append(eventInfoDiv);
+                }
             }
         });
 
     }
+
+
 
     // on.("click") event store user inputs and perform search via runSearch
     $("#submitSearch").on("click", function (event) {
@@ -192,6 +190,7 @@ $(document).ready(function () {
         event.preventDefault();
         // ATTEMPTING TO EMPTY searchResults div to append json object (data) NOT WORKING
         $("#searchResuts").remove();
+
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
         //confirm userSearch 
@@ -212,7 +211,7 @@ $(document).ready(function () {
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
         //uses userCity to search for local weather
-        weather(userCity); 
+        weather(userCity);
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
@@ -220,7 +219,11 @@ $(document).ready(function () {
         console.log(searchURL);
         //add userState 
         userState = $("#state").val().trim();
-
+        if (userState) {
+            var queryState = "&venue.state=" + userState;
+            //create searchURL to pass in as queryURL in AJAX call
+            searchURL = searchURL + queryState;
+        }
         //create variable queryState to hold state queried with URL parameters
         if (userState) {
             var queryState = "&venue.state=" + userState;
@@ -228,8 +231,6 @@ $(document).ready(function () {
         }
         runSearch(searchURL);
     });
-
-
 });
 
 //weather API starts here - Archie
@@ -263,3 +264,4 @@ function show(data) {
         '<h3><strong>Wind Speed</strong>: ' + data.wind.speed + '</h3>';
 
 };
+
