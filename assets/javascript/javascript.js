@@ -193,11 +193,7 @@ $(document).ready(function () {
 
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
-        //uses userCity to search for local weather
-        if (userState && !userCity) {
-            (userCity = userState)
-        }
-        weather(userCity);
+
         //confirm userSearch 
         //create var userQuery hold user search with URL parameters
         var userQuery = "&q=" + userSearch;
@@ -215,6 +211,10 @@ $(document).ready(function () {
         //add userCity 
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
+        weather(userCity);
+        if (userState && !userCity) {
+           (userCity = userState)
+        }
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
