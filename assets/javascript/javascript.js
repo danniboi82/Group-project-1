@@ -11,22 +11,6 @@ $(document).ready(function () {
         default: "assets/images/default.jpg"
     };
 
-    //  returns today's date as a string in format yyyy-mm-dd
-    function dayToday() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd
-        }
-        if (mm < 10) {
-            mm = '0' + mm
-        }
-        today = yyyy + "-" + mm + "-" + dd;
-        return today;
-    }
-
     // get  current position from browser, return Latitude and Longitude
     var browserLatitude, browserLongitude;
 
@@ -75,7 +59,10 @@ $(document).ready(function () {
             url: baseQueryURL,
             method: "GET"
         }).done(function (response) {
+            var city = response.events[0].venue.city
+            weather(city);
             displayMap(response.events);
+
         });
         runSearch(baseQueryURL);
     };
