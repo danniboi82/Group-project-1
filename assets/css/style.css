@@ -1,0 +1,31 @@
+img.resultImage {
+    width: 100px;
+    height: 200px;
+}
+
+#carouselExampleIndicators {
+    position: absolute;
+    top: 20px;
+    z-index: -1;
+}
+
+.jumbotron {
+    opacity: 0.8;
+    margin-top: 25px;
+}
+
+#moveDown {
+   margin-top: 150px;
+}
+
+#weather {
+    height : 400px;
+    width : 500px;
+    border: 1px solid black;
+}
+
+#noSearchResults {
+    color: red; 
+    font-weight: bold;
+    font-size: 20px;
+}
