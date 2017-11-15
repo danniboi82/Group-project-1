@@ -151,7 +151,7 @@ $(document).ready(function () {
             if (response.events.length === 0) {
                 $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
             } else {
-
+                $("#noSearchResults").remove();
                 for (var i = 0; i < response.events.length; i++) {
                     // console.log(response.events[i].title);
                     // console.log(response.events[i].url);
@@ -170,8 +170,8 @@ $(document).ready(function () {
                     //append diplay results to id searchResults
                     $("#searchResults").append(displayResults);
                     //append results to each card.
-                    displayResults.append("<img class='col-md-4' src=" + getPic(response.events[i])[0] + ">");
-                    eventInfoDiv.append("<h3 class=eventInfoDiv-md-8>" + response.events[i].title + "<h3>");
+                    displayResults.append("<img class='col-sm-3 resultImage' src=" + getPic(response.events[i])[0] + ">");
+                    eventInfoDiv.append("<h3 class=eventInfoDiv-sm-9>" + response.events[i].title);
                     eventInfoDiv.append("<p> Event Location :" + response.events[i].venue.display_location + "<p>");
                     eventInfoDiv.append("<p> Event Date/Time :" + response.events[i].datetime_local + "<p>");
                     eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
@@ -257,6 +257,7 @@ function weather(userCity) {
 };
 //function to show data
 function show(data) {
+
     return '<p class="small">Current Weather: ' + data.name + ',' + data.sys.country + '</p>' +
         '<p class="small">Weather: ' + data.weather[0].main + '</p>' +
         '<p class="small">Description: ' + data.weather[0].description + '</p>' +
@@ -266,6 +267,7 @@ function show(data) {
         '<p class="small">Maximum Temperature: ' + data.main.temp_max + '</p>' +
         '<p class="small">Wind Direction: ' + data.wind.degree + '</p>' +
         '<p class="small">Wind Speed: ' + data.wind.speed + '</p>';
+
 
 };
 

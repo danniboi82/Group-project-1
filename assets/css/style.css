@@ -1,27 +1,31 @@
 img.resultImage {
     width: 100px;
-    height: 200px;
+    height: 166px;
+}
+
+#submitSearch {
+    width: 200px;
 }
 
 #carouselExampleIndicators {
     position: absolute;
-    top: 20px;
     z-index: -1;
 }
 
 .jumbotron {
     opacity: 0.8;
-    margin-top: 25px;
+    height: 225px;
 }
 
-#moveDown {
-   margin-top: 150px;
-}
+/* #moveDown {
+   margin-top: 50px;
+} */
 
 #weather {
     height : 400px;
     width : 500px;
     border: 1px solid black;
+    /* background-image: url(http://jenny-leung.com/wp-content/uploads/2014/06/weather-animation.jpg); */
 }
 
 #noSearchResults {
@@ -30,6 +34,7 @@ img.resultImage {
     font-size: 20px;
 }
 
+
 p.small {
     line-height: 35%;
     text-align: center;
@@ -37,3 +42,25 @@ p.small {
     margin-top: -5px;
 
 }
+
+.jumbotronContainer { 
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 540px) {
+#weather {
+    width: 100%;
+    border-top: 30px;
+}
+#map {
+    width: 100%;
+    border-top: 35px;
+}
+}
+
+@media screen and (max-width: 995px) {
+    #submitSearch {
+        width: 100px;
+    }
+}
+
