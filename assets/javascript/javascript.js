@@ -104,20 +104,21 @@ $(document).ready(function () {
 
 
     function runSearch(queryURL) {
-        console.log(queryURL);
         $.ajax({
             url: queryURL,
             method: 'GET'
         }).done(function (response) {
-            displayMap(response.events);
-
             //clear search from before
             $("#searchResults").empty();
+            displayMap(response.events);
 
             if (response.events.length === 0) {
+                console.log(response.events.length)
                 $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
             } else {
-                $("#noSearchResults").remove();
+                $("#noSearchResults").html("");
+                
+
                 for (var i = 0; i < response.events.length; i++) {
                     var displayResults = $("<div>");
                     //create cardClass(bootstrap) to contain data and image
@@ -177,7 +178,6 @@ $(document).ready(function () {
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
-        console.log(searchURL);
         //add userState 
         userState = $("#userState").text().trim();
         if (userState) {
@@ -205,7 +205,6 @@ function weather(userCity) {
             type: 'GET'
         }).done(function (response) {
             var widget = show(response);
-            console.log(widget);
             $('#weather').html(widget);
         }
             );
