@@ -151,7 +151,7 @@ $(document).ready(function () {
             if (response.events.length === 0) {
                 $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
             } else {
-
+                $("#noSearchResults").remove();
                 for (var i = 0; i < response.events.length; i++) {
                     // console.log(response.events[i].title);
                     // console.log(response.events[i].url);
@@ -170,8 +170,8 @@ $(document).ready(function () {
                     //append diplay results to id searchResults
                     $("#searchResults").append(displayResults);
                     //append results to each card.
-                    displayResults.append("<img class='col-md-4' src=" + getPic(response.events[i])[0] + ">");
-                    eventInfoDiv.append("<h3 class=eventInfoDiv-md-8>" + response.events[i].title + "<h3>");
+                    displayResults.append("<img class='col-sm-3 resultImage' src=" + getPic(response.events[i])[0] + ">");
+                    eventInfoDiv.append("<h3 class=eventInfoDiv-sm-9>" + response.events[i].title);
                     eventInfoDiv.append("<p> Event Location :" + response.events[i].venue.display_location + "<p>");
                     eventInfoDiv.append("<p> Event Date/Time :" + response.events[i].datetime_local + "<p>");
                     eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
@@ -253,15 +253,15 @@ function weather(userCity) {
 
 //function to show data
 function show(data) {
-    return '<h3>Current Weather: ' + data.name + ',' + data.sys.country + '</h3>' +
-        '<h3><strong>Weather</strong>: ' + data.weather[0].main + '</h3>' +
-        '<h3><strong>Description</strong>: ' + data.weather[0].description + '</h3>' +
-        '<h3><strong>Temperature</strong>: ' + data.main.temp + '</h3>' +
-        '<h3><strong>Humidity</strong>: ' + data.main.humidty + '</h3>' +
-        '<h3><strong>Minimum Temperature</strong>: ' + data.main.temp_min + '</h3>' +
-        '<h3><strong>Maximum Temperature</strong>: ' + data.main.temp_max + '</h3>' +
-        '<h3><strong>Wind Direction</strong>: ' + data.wind.degree + '</h3>' +
-        '<h3><strong>Wind Speed</strong>: ' + data.wind.speed + '</h3>';
+    return '<p>Current Weather: ' + data.name + ',' + data.sys.country + '</p>' +
+        '<p><strong>Weather</strong>: ' + data.weather[0].main + '</p>' +
+        '<p><strong>Description</strong>: ' + data.weather[0].description + '</p>' +
+        '<p><strong>Temperature</strong>: ' + data.main.temp + '</p>' +
+        '<p><strong>Humidity</strong>: ' + data.main.humidty + '</p>' +
+        '<p><strong>Minimum Temperature</strong>: ' + data.main.temp_min + '</p>' +
+        '<p><strong>Maximum Temperature</strong>: ' + data.main.temp_max + '</p>' +
+        '<p><strong>Wind Direction</strong>: ' + data.wind.degree + '</p>' +
+        '<p><strong>Wind Speed</strong>: ' + data.wind.speed + '</p>';
 
 };
 
