@@ -14,18 +14,20 @@ $(document).ready(function () {
     // get  current position from browser, return Latitude and Longitude
     var browserLatitude, browserLongitude;
 
+
     (function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 browserLatitude = position.coords.latitude;
                 browserLongitude = position.coords.longitude;
-                testingAjaxRequest(browserLatitude, browserLongitude);
+                localEvents(browserLatitude, browserLongitude);
             });
         } else {
             // for testing
             console.log("Geolocation is not supported by this browser.");
         }
     })();
+
 
     // function takes 1 event (response.events[i]) from seatgeek ajax response
     function getPic(seatgeekEvent) {
@@ -44,14 +46,10 @@ $(document).ready(function () {
         }
         // return an array of pic in case the event has a few performers and every perfermer has its own pic.
         return pic;
-
-
     }
 
-    // -------------------------------------------------------------------------
-    // TEST CALL AJAX REQUEST TO SEATGEEK API
-
-    function testingAjaxRequest(lat, lon) {
+    // ajax request for current location (by lat and lon) for the fiarst page load
+    function localEvents(lat, lon) {
         var apiKey = "client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3";
         var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey + "&lat=" + lat + "&lon=" + lon;
 
@@ -66,9 +64,6 @@ $(document).ready(function () {
         });
         runSearch(baseQueryURL);
     };
-
-    // END OF TEST FOR AJAX REQUEST
-    // -------------------------------------------------------------------------
 
     // insert a new map into <div> with id="map"
     var map = L.map('map');
@@ -98,27 +93,11 @@ $(document).ready(function () {
         map.fitBounds(markerLayer.getBounds());
     }
 
-
-    //API KEY FOR SeatGeek : client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3
-    //Host URL : https://api.seatgeek.com/2/events?
     // These variables will hold the results we get from the user's inputs via HTML
     var userSearch = "";
     var userDate = 0;
     var userCity = "";
     var userState = "";
-
-    //DOCUMENT READY, get geo code of user to hydrate page with current events around them. POPULATE using initial AJAX pull using user's current location. 
-    //USE geo coordinates to get city and city to use in ACUTAL AJAX QUERY.  
-    //normal page will contain search bar and list of current events below it 
-    //dislay 6 events (imgs to div)
-
-
-    //Need to figure out how to use api to create list of current events ACCORDING TO USERS CURRENT LOCATION 
-
-    //"newpage" aka searched page will contain list of results made according to users input values subject,date,location.
-
-    //Append necessary data to provided/created divs to display results to end user. 
-
     var apiKey = "&client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3"
     // var userQuery = "&q="+userSearch;
     var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey;
@@ -140,11 +119,6 @@ $(document).ready(function () {
             } else {
                 $("#noSearchResults").remove();
                 for (var i = 0; i < response.events.length; i++) {
-                    // console.log(response.events[i].title);
-                    // console.log(response.events[i].url);
-                    // console.log(response.events[i].venue.display_location);
-                    // console.log(response.events[i].datetime_local);
-                    // console.log(response.events[i].performers[0].image);
                     var displayResults = $("<div>");
                     //create cardClass(bootstrap) to contain data and image
                     displayResults.addClass("card");
@@ -166,10 +140,7 @@ $(document).ready(function () {
                 }
             }
         });
-
     }
-
-
 
     // on.("click") event store user inputs and perform search via runSearch
     $("#submitSearch").on("click", function (event) {
@@ -236,15 +207,14 @@ function weather(userCity) {
             var widget = show(response);
             console.log(widget);
             $('#weather').html(widget);
-
         }
             );
-
     };
 };
+
+
 //function to show data
 function show(data) {
-
     return '<p class="small">Current Weather: ' + data.name + ',' + data.sys.country + '</p>' +
         '<p class="small">Weather: ' + data.weather[0].main + '</p>' +
         '<p class="small">Description: ' + data.weather[0].description + '</p>' +
@@ -254,7 +224,5 @@ function show(data) {
         '<p class="small">Maximum Temperature: ' + data.main.temp_max + '</p>' +
         '<p class="small">Wind Direction: ' + data.wind.degree + '</p>' +
         '<p class="small">Wind Speed: ' + data.wind.speed + '</p>';
-
-
 };
 
