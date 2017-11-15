@@ -1,6 +1,10 @@
 img.resultImage {
     width: 100px;
-    height: 200px;
+    height: 100px;
+}
+
+#submitSearch {
+    width: 200px;
 }
 
 #carouselExampleIndicators {
