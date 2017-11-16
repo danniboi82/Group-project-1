@@ -172,6 +172,7 @@ $(document).ready(function () {
 
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
+
         //confirm userSearch 
         //create var userQuery hold user search with URL parameters
         var userQuery = "&q=" + userSearch;
@@ -180,20 +181,24 @@ $(document).ready(function () {
         //add userCity 
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
-        //uses userCity to search for local weather
         weather(userCity);
+        if (userState && !userCity) {
+            (userCity = userState)
+        }
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
         console.log(searchURL);
         //add userState 
-        userState = $("#state").val().trim();
+        userState = $("#userState").text().trim();
         if (userState) {
             var queryState = "&venue.state=" + userState;
             //create searchURL to pass in as queryURL in AJAX call
             searchURL = searchURL + queryState;
         }
+
+        //if userstate doens't exist and usercity exists then userstate equals user city 
         //create variable queryState to hold state queried with URL parameters
         if (userState) {
             var queryState = "&venue.state=" + userState;
@@ -220,18 +225,19 @@ function weather(userCity) {
 
     };
 };
-
 //function to show data
 function show(data) {
+
     return '<h5 class="text-center">Current Weather: ' + data.name + ',' + data.sys.country + '</h5>' +
-        '<p><strong>Weather</strong>: ' + data.weather[0].main + '</p>' +
-        '<p><strong>Description</strong>: ' + data.weather[0].description + '</p>' +
-        '<p><strong>Temperature</strong>: ' + data.main.temp + '</p>' +
-        '<p><strong>Humidity</strong>: ' + data.main.humidty + '</p>' +
-        '<p><strong>Minimum Temperature</strong>: ' + data.main.temp_min + '</p>' +
-        '<p><strong>Maximum Temperature</strong>: ' + data.main.temp_max + '</p>' +
-        '<p><strong>Wind Direction</strong>: ' + data.wind.degree + '</p>' +
-        '<p><strong>Wind Speed</strong>: ' + data.wind.speed + '</p>';
+        '<p class="small">Weather: ' + data.weather[0].main + '</p>' +
+        '<p class="small">Description: ' + data.weather[0].description + '</p>' +
+        '<p class="small">Temperature: ' + data.main.temp + '</p>' +
+        '<p class="small">Humclassity: ' + data.main.humclassty + '</p>' +
+        '<p class="small">Minimum Temperature: ' + data.main.temp_min + '</p>' +
+        '<p class="small">Maximum Temperature: ' + data.main.temp_max + '</p>' +
+        '<p class="small">Wind Direction: ' + data.wind.degree + '</p>' +
+        '<p class="small">Wind Speed: ' + data.wind.speed + '</p>';
+
 
 };
 
