@@ -79,7 +79,7 @@ $(document).ready(function () {
         if (markerLayer) {
             map.removeLayer(markerLayer);
         }
-        if (seatgeekEvents.length === 0){
+        if (seatgeekEvents.length === 0) {
             return;
         }
         markerLayer = L.featureGroup().addTo(map);
@@ -117,7 +117,7 @@ $(document).ready(function () {
                 $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
             } else {
                 $("#noSearchResults").html("");
-                
+
 
                 for (var i = 0; i < response.events.length; i++) {
                     var displayResults = $("<div>");
@@ -158,11 +158,15 @@ $(document).ready(function () {
         var searchURL = baseQueryURL + userQuery;
         //add userCity 
         userCity = $("#userCity").val().trim();
-        userCity = userCity.split(' ').join('+');
-        weather(userCity);
-        if (userState && !userCity) {
-            (userCity = userState)
+
+        // var letterNumber = /^[a-zA-Z \-]+$/;  
+        if (!userCity.match(/^[a-zA-Z \-]*$/)) {
+            $("#userCity").addClass("is-invalid");
+            return;
         }
+        $("#userCity").removeClass("is-invalid");
+        userCity = userCity.split(' ').join('+');
+
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
@@ -187,6 +191,7 @@ $(document).ready(function () {
 //weather API starts here - Archie
 //Tried to connect the "City" section from the form to sync with the city data, userCity
 function weather(userCity) {
+    $('#weather').html("");
     if (userCity != '') {
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/weather?q=' + userCity + '&units=imperial' + '&APPID=13c12670457fb8abfe535c34a3edb056',
