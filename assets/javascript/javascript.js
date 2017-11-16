@@ -114,7 +114,7 @@ $(document).ready(function () {
 
             if (response.events.length === 0) {
                 console.log(response.events.length)
-                $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
+                $("#noSearchResults").html("NO EVENTS FOUND WITH THIS CRITERIA");
             } else {
                 $("#noSearchResults").html("");
 
@@ -136,7 +136,7 @@ $(document).ready(function () {
                     eventInfoDiv.append("<h3 class=eventInfoDiv-sm-9>" + response.events[i].title);
                     eventInfoDiv.append("<p> <b>Event Location : </b>" + response.events[i].venue.display_location + "<p>");
                     eventInfoDiv.append("<p> <b>Event Date/Time : </b>" + response.events[i].datetime_local + "<p>");
-                    eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
+                    eventInfoDiv.append("<a href=" + response.events[i].url + " target='_blank'>" + response.events[i].url + "</a>");
                     displayResults.append(eventInfoDiv);
                 }
             }
@@ -158,21 +158,29 @@ $(document).ready(function () {
         var searchURL = baseQueryURL + userQuery;
         //add userCity 
         userCity = $("#userCity").val().trim();
-
-        // var letterNumber = /^[a-zA-Z \-]+$/;  
+        //add userState
+        userState = $("#state").val()
+        
         if (!userCity.match(/^[a-zA-Z \-]*$/)) {
             $("#userCity").addClass("is-invalid");
             return;
         }
+        if (!userCity && !userState && !userSearch) {
+            $("#userCity").addClass("is-invalid");
+            $("#state").addClass("is-invalid");
+            $("#userSearch").addClass("is-invalid");
+            return;
+        }
         $("#userCity").removeClass("is-invalid");
+        $("#state").removeClass("is-invalid");
+        $("#userSearch").removeClass("is-invalid");
+        
         userCity = userCity.split(' ').join('+');
 
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
-        //add userState 
-        userState = $("#state").val().trim();
 
         //if userstate doens't exist and usercity exists then userstate equals user city 
         //create variable queryState to hold state queried with URL parameters

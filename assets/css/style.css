@@ -25,11 +25,12 @@ img.resultImage {
 #weather {
     height : 400px;
     width : 500px;
-    background-image: url(http://jenny-leung.com/wp-content/uploads/2014/06/weather-animation.jpg);
+    background-image: url(../images/weather-animation.jpg);
     z-index: -1;
 }
 
 #noSearchResults {
+    margin-top: 15px;
     color: red; 
     font-weight: bold;
     font-size: 20px;
