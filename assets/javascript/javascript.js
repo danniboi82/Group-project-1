@@ -78,7 +78,9 @@ $(document).ready(function () {
     function displayMap(seatgeekEvents) {
         if (markerLayer) {
             map.removeLayer(markerLayer);
-
+        }
+        if (seatgeekEvents.length === 0){
+            return;
         }
         markerLayer = L.featureGroup().addTo(map);
         for (var i = 0; i < seatgeekEvents.length; i++) {
