@@ -154,12 +154,7 @@ $(document).ready(function () {
 
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
-        //uses userCity to search for local weather
-        if (userState && !userCity) {
-            (userCity = userState)
-        }
-        weather(userCity);
-        //confirm userSearch 
+
         //create var userQuery hold user search with URL parameters
         var userQuery = "&q=" + userSearch;
         //create searchURL (URL to be searched ) to pass in as queryURL in AJAX call
@@ -181,19 +176,18 @@ $(document).ready(function () {
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
         //add userState 
-        userState = $("#userState").text().trim();
-        if (userState) {
-            var queryState = "&venue.state=" + userState;
-            //create searchURL to pass in as queryURL in AJAX call
-            searchURL = searchURL + queryState;
-        }
+        userState = $("#state").val().trim();
 
         //if userstate doens't exist and usercity exists then userstate equals user city 
         //create variable queryState to hold state queried with URL parameters
         if (userState) {
             var queryState = "&venue.state=" + userState;
             searchURL = searchURL + queryState;
+            if (userState && !userCity) {
+                (userCity = $("#state option[value='" + $("#state").val() + "']").text())
+            }
         }
+        weather(userCity);
         runSearch(searchURL);
     });
 });
