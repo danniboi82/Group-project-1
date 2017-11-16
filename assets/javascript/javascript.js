@@ -79,7 +79,7 @@ $(document).ready(function () {
         if (markerLayer) {
             map.removeLayer(markerLayer);
         }
-        if (seatgeekEvents.length === 0){
+        if (seatgeekEvents.length === 0) {
             return;
         }
         markerLayer = L.featureGroup().addTo(map);
@@ -114,10 +114,10 @@ $(document).ready(function () {
 
             if (response.events.length === 0) {
                 console.log(response.events.length)
-                $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
+                $("#noSearchResults").html("NO EVENTS FOUND WITH THIS CRITERIA");
             } else {
                 $("#noSearchResults").html("");
-                
+
 
                 for (var i = 0; i < response.events.length; i++) {
                     var displayResults = $("<div>");
@@ -136,7 +136,7 @@ $(document).ready(function () {
                     eventInfoDiv.append("<h3 class=eventInfoDiv-sm-9>" + response.events[i].title);
                     eventInfoDiv.append("<p> <b>Event Location : </b>" + response.events[i].venue.display_location + "<p>");
                     eventInfoDiv.append("<p> <b>Event Date/Time : </b>" + response.events[i].datetime_local + "<p>");
-                    eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
+                    eventInfoDiv.append("<a href=" + response.events[i].url + " target='_blank'>" + response.events[i].url + "</a>");
                     displayResults.append(eventInfoDiv);
                 }
             }
@@ -158,17 +158,29 @@ $(document).ready(function () {
         var searchURL = baseQueryURL + userQuery;
         //add userCity 
         userCity = $("#userCity").val().trim();
-        userCity = userCity.split(' ').join('+');
-        weather(userCity);
-        if (userState && !userCity) {
-            (userCity = userState)
+        //add userState
+        userState = $("#state").val()
+        
+        if (!userCity.match(/^[a-zA-Z \-]*$/)) {
+            $("#userCity").addClass("is-invalid");
+            return;
         }
+        if (!userCity && !userState && !userSearch) {
+            $("#userCity").addClass("is-invalid");
+            $("#state").addClass("is-invalid");
+            $("#userSearch").addClass("is-invalid");
+            return;
+        }
+        $("#userCity").removeClass("is-invalid");
+        $("#state").removeClass("is-invalid");
+        $("#userSearch").removeClass("is-invalid");
+        
+        userCity = userCity.split(' ').join('+');
+
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
-        //add userState 
-        userState = $("#state").val().trim();
 
         //if userstate doens't exist and usercity exists then userstate equals user city 
         //create variable queryState to hold state queried with URL parameters
@@ -187,6 +199,7 @@ $(document).ready(function () {
 //weather API starts here - Archie
 //Tried to connect the "City" section from the form to sync with the city data, userCity
 function weather(userCity) {
+    $('#weather').html("");
     if (userCity != '') {
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/weather?q=' + userCity + '&units=imperial' + '&APPID=13c12670457fb8abfe535c34a3edb056',
