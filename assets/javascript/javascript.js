@@ -154,7 +154,6 @@ $(document).ready(function () {
 
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
-
         //create var userQuery hold user search with URL parameters
         var userQuery = "&q=" + userSearch;
         //create searchURL (URL to be searched ) to pass in as queryURL in AJAX call
@@ -171,6 +170,10 @@ $(document).ready(function () {
         //add userCity 
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
+        weather(userCity);
+        if (userState && !userCity) {
+           (userCity = userState)
+        }
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
