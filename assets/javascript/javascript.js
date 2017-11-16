@@ -112,28 +112,12 @@ $(document).ready(function () {
     }
 
 
-    //API KEY FOR SeatGeek : client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3
-    //Host URL : https://api.seatgeek.com/2/events?
     // These variables will hold the results we get from the user's inputs via HTML
     var userSearch = "";
-    var userDate = 0;
     var userCity = "";
     var userState = "";
 
-    //DOCUMENT READY, get geo code of user to hydrate page with current events around them. POPULATE using initial AJAX pull using user's current location. 
-    //USE geo coordinates to get city and city to use in ACUTAL AJAX QUERY.  
-    //normal page will contain search bar and list of current events below it 
-    //dislay 6 events (imgs to div)
-
-
-    //Need to figure out how to use api to create list of current events ACCORDING TO USERS CURRENT LOCATION 
-
-    //"newpage" aka searched page will contain list of results made according to users input values subject,date,location.
-
-    //Append necessary data to provided/created divs to display results to end user. 
-
     var apiKey = "&client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3"
-    // var userQuery = "&q="+userSearch;
     var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey;
 
 
@@ -153,11 +137,6 @@ $(document).ready(function () {
             } else {
                 $("#noSearchResults").remove();
                 for (var i = 0; i < response.events.length; i++) {
-                    // console.log(response.events[i].title);
-                    // console.log(response.events[i].url);
-                    // console.log(response.events[i].venue.display_location);
-                    // console.log(response.events[i].datetime_local);
-                    // console.log(response.events[i].performers[0].image);
                     var displayResults = $("<div>");
                     //create cardClass(bootstrap) to contain data and image
                     displayResults.addClass("card");
@@ -166,14 +145,14 @@ $(document).ready(function () {
                     displayResults.attr("class", "row");
                     // create div to collect info about event align right from the pic
                     var eventInfoDiv = $("<div>");
-                    eventInfoDiv.addClass("col-md-8");
+                    eventInfoDiv.addClass("col-sm-9");
                     //append diplay results to id searchResults
                     $("#searchResults").append(displayResults);
                     //append results to each card.
                     displayResults.append("<img class='col-sm-3 resultImage' src=" + getPic(response.events[i])[0] + ">");
                     eventInfoDiv.append("<h3 class=eventInfoDiv-sm-9>" + response.events[i].title);
-                    eventInfoDiv.append("<p> Event Location :" + response.events[i].venue.display_location + "<p>");
-                    eventInfoDiv.append("<p> Event Date/Time :" + response.events[i].datetime_local + "<p>");
+                    eventInfoDiv.append("<p> <b>Event Location : </b>" + response.events[i].venue.display_location + "<p>");
+                    eventInfoDiv.append("<p> <b>Event Date/Time : </b>" + response.events[i].datetime_local + "<p>");
                     eventInfoDiv.append("<a href=" + response.events[i].url + ">" + response.events[i].url + "</a>");
                     displayResults.append(eventInfoDiv);
                 }
@@ -199,21 +178,12 @@ $(document).ready(function () {
         var userQuery = "&q=" + userSearch;
         //create searchURL (URL to be searched ) to pass in as queryURL in AJAX call
         var searchURL = baseQueryURL + userQuery;
-        //confirm searchURL 
-        //*********************ATTEMPTED TO MAKE but not WORKING as intended *************************************************
-        // //add userDate 
-        // userDate = $("#userDate").val().trim();
-        // //create variable queryDate to hold date queried with URL parameters ex. (2017-12-25)
-        // var queryDate = "&datetime_local=" + userDate;
-        // //create searchURL to pass in as queryURL in AJAX call
-        // searchURL = searchURL + queryDate;
-        // console.log(searchURL);
         //add userCity 
         userCity = $("#userCity").val().trim();
         userCity = userCity.split(' ').join('+');
         weather(userCity);
         if (userState && !userCity) {
-           (userCity = userState)
+            (userCity = userState)
         }
         //create variable queryCity to hold city queried with URL parameters
         var queryCity = "&venue.city=" + userCity;
@@ -258,7 +228,7 @@ function weather(userCity) {
 //function to show data
 function show(data) {
 
-    return '<p class="small">Current Weather: ' + data.name + ',' + data.sys.country + '</p>' +
+    return '<h5 class="text-center">Current Weather: ' + data.name + ',' + data.sys.country + '</h5>' +
         '<p class="small">Weather: ' + data.weather[0].main + '</p>' +
         '<p class="small">Description: ' + data.weather[0].description + '</p>' +
         '<p class="small">Temperature: ' + data.main.temp + '</p>' +
