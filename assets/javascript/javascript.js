@@ -11,37 +11,23 @@ $(document).ready(function () {
         default: "assets/images/default.jpg"
     };
 
-    //  returns today's date as a string in format yyyy-mm-dd
-    function dayToday() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd
-        }
-        if (mm < 10) {
-            mm = '0' + mm
-        }
-        today = yyyy + "-" + mm + "-" + dd;
-        return today;
-    }
-
     // get  current position from browser, return Latitude and Longitude
     var browserLatitude, browserLongitude;
+
 
     (function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 browserLatitude = position.coords.latitude;
                 browserLongitude = position.coords.longitude;
-                testingAjaxRequest(browserLatitude, browserLongitude);
+                localEvents(browserLatitude, browserLongitude);
             });
         } else {
             // for testing
             console.log("Geolocation is not supported by this browser.");
         }
     })();
+
 
     // function takes 1 event (response.events[i]) from seatgeek ajax response
     function getPic(seatgeekEvent) {
@@ -60,14 +46,10 @@ $(document).ready(function () {
         }
         // return an array of pic in case the event has a few performers and every perfermer has its own pic.
         return pic;
-
-
     }
 
-    // -------------------------------------------------------------------------
-    // TEST CALL AJAX REQUEST TO SEATGEEK API
-
-    function testingAjaxRequest(lat, lon) {
+    // ajax request for current location (by lat and lon) for the fiarst page load
+    function localEvents(lat, lon) {
         var apiKey = "client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3";
         var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey + "&lat=" + lat + "&lon=" + lon;
 
@@ -75,13 +57,13 @@ $(document).ready(function () {
             url: baseQueryURL,
             method: "GET"
         }).done(function (response) {
+            var city = response.events[0].venue.city
+            weather(city);
             displayMap(response.events);
+
         });
         runSearch(baseQueryURL);
     };
-
-    // END OF TEST FOR AJAX REQUEST
-    // -------------------------------------------------------------------------
 
     // insert a new map into <div> with id="map"
     var map = L.map('map');
@@ -96,7 +78,9 @@ $(document).ready(function () {
     function displayMap(seatgeekEvents) {
         if (markerLayer) {
             map.removeLayer(markerLayer);
-
+        }
+        if (seatgeekEvents.length === 0){
+            return;
         }
         markerLayer = L.featureGroup().addTo(map);
         for (var i = 0; i < seatgeekEvents.length; i++) {
@@ -111,31 +95,30 @@ $(document).ready(function () {
         map.fitBounds(markerLayer.getBounds());
     }
 
-
     // These variables will hold the results we get from the user's inputs via HTML
     var userSearch = "";
     var userCity = "";
     var userState = "";
-
     var apiKey = "&client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3"
     var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey;
 
 
     function runSearch(queryURL) {
-        console.log(queryURL);
         $.ajax({
             url: queryURL,
             method: 'GET'
         }).done(function (response) {
-            displayMap(response.events);
-
             //clear search from before
             $("#searchResults").empty();
+            displayMap(response.events);
 
             if (response.events.length === 0) {
+                console.log(response.events.length)
                 $("#noSearchResults").html("NO RESULTS PLEASE TRY AGAIN");
             } else {
-                $("#noSearchResults").remove();
+                $("#noSearchResults").html("");
+                
+
                 for (var i = 0; i < response.events.length; i++) {
                     var displayResults = $("<div>");
                     //create cardClass(bootstrap) to contain data and image
@@ -158,10 +141,7 @@ $(document).ready(function () {
                 }
             }
         });
-
     }
-
-
 
     // on.("click") event store user inputs and perform search via runSearch
     $("#submitSearch").on("click", function (event) {
@@ -172,8 +152,6 @@ $(document).ready(function () {
 
         // Grabbing text the user typed into the search input
         userSearch = $("#userSearch").val().trim();
-
-        //confirm userSearch 
         //create var userQuery hold user search with URL parameters
         var userQuery = "&q=" + userSearch;
         //create searchURL (URL to be searched ) to pass in as queryURL in AJAX call
@@ -189,21 +167,19 @@ $(document).ready(function () {
         var queryCity = "&venue.city=" + userCity;
         //create searchURL to pass in as queryURL in AJAX call
         searchURL = searchURL + queryCity;
-        console.log(searchURL);
         //add userState 
-        userState = $("#userState").text().trim();
-        if (userState) {
-            var queryState = "&venue.state=" + userState;
-            //create searchURL to pass in as queryURL in AJAX call
-            searchURL = searchURL + queryState;
-        }
+        userState = $("#state").val().trim();
 
         //if userstate doens't exist and usercity exists then userstate equals user city 
         //create variable queryState to hold state queried with URL parameters
         if (userState) {
             var queryState = "&venue.state=" + userState;
             searchURL = searchURL + queryState;
+            if (userState && !userCity) {
+                (userCity = $("#state option[value='" + $("#state").val() + "']").text())
+            }
         }
+        weather(userCity);
         runSearch(searchURL);
     });
 });
@@ -217,14 +193,13 @@ function weather(userCity) {
             type: 'GET'
         }).done(function (response) {
             var widget = show(response);
-            console.log(widget);
             $('#weather').html(widget);
-
         }
             );
-
     };
 };
+
+
 //function to show data
 function show(data) {
 
@@ -237,7 +212,5 @@ function show(data) {
         '<p class="small">Maximum Temperature: ' + data.main.temp_max + '</p>' +
         '<p class="small">Wind Direction: ' + data.wind.degree + '</p>' +
         '<p class="small">Wind Speed: ' + data.wind.speed + '</p>';
-
-
 };
 
