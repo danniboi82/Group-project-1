@@ -1,6 +1,7 @@
 img.resultImage {
-    width: 100px;
-    height: 166px;
+    height: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 #submitSearch {
@@ -24,8 +25,8 @@ img.resultImage {
 #weather {
     height : 400px;
     width : 500px;
-    border: 1px solid black;
-    /* background-image: url(http://jenny-leung.com/wp-content/uploads/2014/06/weather-animation.jpg); */
+    background-image: url(http://jenny-leung.com/wp-content/uploads/2014/06/weather-animation.jpg);
+    z-index: -1;
 }
 
 #noSearchResults {
@@ -36,6 +37,15 @@ img.resultImage {
 
 .jumbotronContainer { 
     margin-top: 10px;
+}
+
+footer{
+    margin-top: 100px;
+}
+
+#returnedData0, #returnedData1, #returnedData2, #returnedData3, #returnedData4, #returnedData5, #returnedData6, #returnedData7, #returnedData8, #returnedData9 {
+    border: 1px solid black;
+    margin: 5px 5px 0 0;
 }
 
 @media screen and (max-width: 540px) {
