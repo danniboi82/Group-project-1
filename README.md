@@ -1,1 +1,1 @@
-# Event Finder App
+# Group-progect-1

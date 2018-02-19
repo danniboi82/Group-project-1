@@ -163,6 +163,8 @@ $(document).ready(function () {
         
         if (!userCity.match(/^[a-zA-Z \-]*$/)) {
             $("#userCity").addClass("is-invalid");
+            $("#state").removeClass("is-invalid");
+            $("#userSearch").removeClass("is-invalid");
             return;
         }
         if (!userCity && !userState && !userSearch) {
