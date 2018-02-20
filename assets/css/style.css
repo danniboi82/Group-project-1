@@ -65,8 +65,10 @@ p.small {
     margin-top: 10px;
 }
 
-footer{
+.footerDiv{
     margin-top: 100px;
+    background: gray;
+    height: 100px;
 }
 
 #returnedData0, #returnedData1, #returnedData2, #returnedData3, #returnedData4, #returnedData5, #returnedData6, #returnedData7, #returnedData8, #returnedData9 {
@@ -93,9 +95,4 @@ footer{
 
 input.is-invalid {
     color: red;
-}
-
-#footer {
-        position: absolute;;
-        bottom:0;
 }
