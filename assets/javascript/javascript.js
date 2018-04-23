@@ -36,7 +36,7 @@ $(document).ready(function () {
         for (var i = 0; i < seatgeekEvent.performers.length; i++) {
             var image = seatgeekEvent.performers[i].image;
             if (image != null) {
-                pic.push(image)
+                pic.push(image);
             }
         }
         // if no images were founded in API response -> return a default image
@@ -57,13 +57,13 @@ $(document).ready(function () {
             url: baseQueryURL,
             method: "GET"
         }).done(function (response) {
-            var city = response.events[0].venue.city
+            var city = response.events[0].venue.city;
             weather(city);
             displayMap(response.events);
 
         });
         runSearch(baseQueryURL);
-    };
+    }
 
     // insert a new map into <div> with id="map"
     var map = L.map('map');
@@ -87,7 +87,7 @@ $(document).ready(function () {
             var loc = seatgeekEvents[i].venue.location;
             var eventId = "returnedData" + i;
             var eventName = seatgeekEvents[i].title;
-            var link = "<a href=#" + eventId + ">" + eventName + "</a>"
+            var link = "<a href=#" + eventId + ">" + eventName + "</a>";
 
             L.marker(loc).addTo(markerLayer)
                 .bindPopup(link);
@@ -99,7 +99,7 @@ $(document).ready(function () {
     var userSearch = "";
     var userCity = "";
     var userState = "";
-    var apiKey = "&client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3"
+    var apiKey = "&client_id=OTU3MDMwMHwxNTEwMjUwNDQ0LjI3";
     var baseQueryURL = "https://api.seatgeek.com/2/events?" + apiKey;
 
 
@@ -113,11 +113,10 @@ $(document).ready(function () {
             displayMap(response.events);
 
             if (response.events.length === 0) {
-                console.log(response.events.length)
+                console.log(response.events.length);
                 $("#noSearchResults").html("NO EVENTS FOUND WITH THIS CRITERIA");
             } else {
                 $("#noSearchResults").html("");
-
 
                 for (var i = 0; i < response.events.length; i++) {
                     var displayResults = $("<div>");
@@ -125,7 +124,7 @@ $(document).ready(function () {
                     displayResults.addClass("card");
                     //create id for each returned object
                     displayResults.attr("id", "returnedData" + i);
-                    displayResults.attr("class", "row");
+                    displayResults.attr("class", "row mb-2 dataReturned");
                     // create div to collect info about event align right from the pic
                     var eventInfoDiv = $("<div>");
                     eventInfoDiv.addClass("col-sm-9");
@@ -133,10 +132,10 @@ $(document).ready(function () {
                     $("#searchResults").append(displayResults);
                     //append results to each card.
                     displayResults.append("<img class='col-sm-3 resultImage' src=" + getPic(response.events[i])[0] + ">");
-                    eventInfoDiv.append("<h3 class=eventInfoDiv-sm-9>" + response.events[i].title);
-                    eventInfoDiv.append("<p> <b>Event Location : </b>" + response.events[i].venue.display_location + "<p>");
-                    eventInfoDiv.append("<p> <b>Event Date/Time : </b>" + response.events[i].datetime_local + "<p>");
-                    eventInfoDiv.append("<a href=" + response.events[i].url + " target='_blank'>" + response.events[i].url + "</a>");
+                    eventInfoDiv.append("<p class='my-2'>" + response.events[i].datetime_local + "<p>");
+                    eventInfoDiv.append("<h4 class='eventInfoDiv-sm-9 mt-2 mb-3'>" + response.events[i].title);
+                    eventInfoDiv.append("<p class='mb-1'> " + response.events[i].venue.display_location + "<p>");
+                    eventInfoDiv.append("<div class=' mx-auto button-div'><a class='btn btn-outline-danger' href=" + response.events[i].url + " target='_blank'>Buy Ticket!</a></div>");
                     displayResults.append(eventInfoDiv);
                 }
             }
@@ -159,7 +158,7 @@ $(document).ready(function () {
         //add userCity 
         userCity = $("#userCity").val().trim();
         //add userState
-        userState = $("#state").val()
+        userState = $("#state").val();
         
         if (!userCity.match(/^[a-zA-Z \-]*$/)) {
             $("#userCity").addClass("is-invalid");
@@ -190,7 +189,7 @@ $(document).ready(function () {
             var queryState = "&venue.state=" + userState;
             searchURL = searchURL + queryState;
             if (userState && !userCity) {
-                (userCity = $("#state option[value='" + $("#state").val() + "']").text())
+                (userCity = $("#state option[value='" + $("#state").val() + "']").text());
             }
         }
         weather(userCity);
@@ -211,8 +210,8 @@ function weather(userCity) {
             $('#weather').html(widget);
         }
             );
-    };
-};
+    }
+}
 
 
 //function to show data
@@ -227,5 +226,5 @@ function show(data) {
         '<p class="small">Maximum Temperature: ' + data.main.temp_max + '</p>' +
         '<p class="small">Wind Direction: ' + data.wind.degree + '</p>' +
         '<p class="small">Wind Speed: ' + data.wind.speed + '</p>';
-};
+}
 

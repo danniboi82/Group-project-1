@@ -1,0 +1,82 @@
+.body{
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-brand,
+h1 {
+    font-family: 'Quicksand', cursive;
+    font-size: 2.5rem;
+    font-weight: 900;
+}
+
+h1.text-center.title {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/banner.jpg);
+    background-size: 100% 100%;
+    height: 100px;
+    background-color: red;
+    line-height: 100px;
+    color: white;
+}
+
+.card-image {
+    width: 100%;
+    height: 160px;
+}
+
+img.resultImage {
+    height: 206px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.dataReturned {
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    font-family: "Roboto", sans-serif;
+}
+
+.dataReturned:hover {
+    border: 1px solid #505050;
+    background-color: #f0f0f0;
+    box-shadow: 20px 20px 50px grey;
+}
+
+#weather {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/weather-animation.jpg);
+    color: white;
+}
+
+footer.footer{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/banner.jpg);
+    background-size: cover;
+    color: white;
+}
+
+.footerDetails{
+    margin-top: 65px;  
+}
+
+.footerIcons{
+    font-size: 3em; 
+    color: white;
+}
+
+i{
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 575px) {
+    a.btn.btn-outline-danger {
+        width:100%;
+    }
+    
+}
+
+
+
+input.is-invalid {
+    color: red;
+}
