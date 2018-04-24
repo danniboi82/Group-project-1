@@ -1,16 +1,19 @@
 body {
     background-color: #000;
-    font-family: 'Lobster', cursive;
+    font-size: 50px;
 }
+
 
 #landing-header {
     z-index: 1;
     position: relative;
     text-align: center;
-    padding-top: 40vh;
+    padding-top: 30vh;
 }
 
 #landing-header h1 {
+    font-family: 'Roboto', cursive;
+    font-size: 90px;
     color: #fff;
     -webkit-text-stroke: 1px black;
     color: white;
@@ -87,4 +90,3 @@ body {
 .no-cssanimations .slideshow li {
     opacity: 1;
 }
-
