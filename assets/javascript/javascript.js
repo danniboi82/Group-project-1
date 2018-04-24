@@ -203,7 +203,7 @@ function weather(userCity) {
     $('#weather').html("");
     if (userCity != '') {
         $.ajax({
-            url: 'http://api.openweathermap.org/data/2.5/weather?q=' + userCity + '&units=imperial' + '&APPID=13c12670457fb8abfe535c34a3edb056',
+            url: 'https://api.openweathermap.org/data/2.5/weather?q=' + userCity + '&units=imperial' + '&APPID=13c12670457fb8abfe535c34a3edb056',
             type: 'GET'
         }).done(function (response) {
             var widget = show(response);
