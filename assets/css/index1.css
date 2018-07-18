@@ -1,6 +1,11 @@
 .body{
     padding: 0;
-    margin: 0;
+    margin: 0; 
+}
+
+.navbar {
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("http://www.imaginefestival.com/wp-content/uploads/2017/05/planning-banner-1260x500.jpg");
+    color: white;
 }
 
 .navbar-brand,
@@ -10,13 +15,12 @@ h1 {
     font-weight: 900;
 }
 
-h1.text-center.title {
+.searchContainer {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/banner.jpg);
     background-size: 100% 100%;
-    height: 100px;
     background-color: red;
-    line-height: 100px;
     color: white;
+    padding: 25px 0;
 }
 
 .card-image {
@@ -55,6 +59,8 @@ footer.footer{
     color: white;
 }
 
+
+
 .footerDetails{
     margin-top: 65px;  
 }
@@ -68,6 +74,14 @@ i{
     margin-right: 10px;
 }
 
+.searchArea {
+    display: flex;
+}
+
+#submitSearch, #userCity, #userSearch, #state{
+    flex-grow: 1;
+    }
+
 @media screen and (max-width: 575px) {
     a.btn.btn-outline-danger {
         width:100%;
@@ -75,7 +89,16 @@ i{
     
 }
 
-
+/* @media screen and (max-width: 767px){
+    .form-inline .form-control{
+        display:inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
+    mr-sm-2, mx-sm-2 {
+        margin-right: 0.5rem !important;
+    }
+} */
 
 input.is-invalid {
     color: red;

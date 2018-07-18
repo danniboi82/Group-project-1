@@ -17,10 +17,19 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a href="home.html" class="navbar-brand">iEvents</a>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Event" aria-label="Search" id="userSearch">
-                <input class="form-control mr-sm-2" type="search" placeholder="City" aria-label="Search" id="userCity">
+            <a href="home.html" class="navbar-brand">
+                <img src="assets/images/ievents_logo.png" alt="" width="150px">
+            </a>
+            <h1 class='text-center title'>Popular Events in your AREA!</h1>
+
+        </div>
+    </nav>
+
+    <div class="searchContainer">
+        <div class="container ">
+            <form class="form-inline my-2 my-lg-0 searchArea">
+                <input class="form-control mr-md-2" type="search" placeholder="Event" aria-label="Search" id="userSearch">
+                <input class="form-control mr-md-2" type="search" placeholder="City" aria-label="Search" id="userCity">
                 <select class="form-control" id="state" name="state">
                     <option value="">State</option>
                     <option value="AK">Alaska</option>
@@ -79,9 +88,7 @@
                 <input class="btn btn-outline-success my-2 my-sm-0" id="submitSearch" type="submit" />
             </form>
         </div>
-    </nav>
-
-    <h1 class='text-center title'>Popular Events in your AREA!</h1>
+    </div>
     <div class="container my-5">
         <div class="row">
             <div class="col-sm-4 my-5">
@@ -113,7 +120,7 @@
                 </div>
                 <div class="col-sm-4 footerDetails">
                     <h1 id='brand'>
-                        <i class="fab fa-earlybirds"></i> iEvents
+                        <img src="assets/images/ievents_logo.png" alt="" width="150px">
                     </h1>
                     <small>&copy; Copyright 2018</small>
                     <br>
